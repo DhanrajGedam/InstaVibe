@@ -9,8 +9,10 @@ import org.springframework.validation.BindingResult;
 
 import com.jsp.instaVibe.dto.User;
 import com.jsp.instaVibe.helper.AES;
+import com.jsp.instaVibe.helper.EmailSender;
 import com.jsp.instaVibe.repository.UserRepository;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Service
@@ -18,13 +20,16 @@ public class UserService {
 	
 	@Autowired
 	UserRepository repository;
+	
+	@Autowired
+	EmailSender emailSender;
 
 	public String loadRegister(ModelMap map, User user) {
 		map.put("user", user);
 		return "register.html";
 	}
 
-	public String register(@Valid User user, BindingResult result) {
+	public String register(@Valid User user, BindingResult result, HttpSession session) {
 		if (!user.getPassword().equals(user.getConfirmpassword()))
 			result.rejectValue("confirmpassword", "error.confirmpassword", "Passwords not Matching");
 		if (repository.existsByEmail(user.getEmail()))
@@ -40,23 +45,24 @@ public class UserService {
 			int otp = new Random().nextInt(100000, 1000000);
 			user.setOtp(otp);
 			System.err.println(otp);
+			emailSender.sendOtp(user.getEmail(), otp, user.getFirstname());
 			repository.save(user);
+			session.setAttribute("pass", "Otp Sent Success");
 			return "redirect:/otp/" + user.getId();
 		}
 	}
 
-	public String verifyOtp(int otp, int id) {
+	public String verifyOtp(int otp, int id, HttpSession session) {
 		User user = repository.findById(id).get();
 		if (user.getOtp() == otp) {
 			user.setVerified(true);
 			user.setOtp(0);
 			repository.save(user);
+			session.setAttribute("pass", "Account Created Success");
 			return "redirect:/login";
 		} else {
+			session.setAttribute("fail", "Invalid Otp, Try Again!!!");
 			return "redirect:/otp/" + id;
 		}
 	}
-	
-	
-
 }
