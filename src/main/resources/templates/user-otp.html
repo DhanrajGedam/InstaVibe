@@ -14,6 +14,23 @@
             height: 100vh;
             margin: 0;
         }
+        #logo {
+            position: absolute;
+            max-width: 400px;
+            top: 20px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; /* Space between message and otp-container */
+            width: 100%;
+            max-width: 400px;
+        }
+        .message {
+            text-align: center;
+            margin-bottom: 15px;
+        }
         .otp-container {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
@@ -21,11 +38,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
-            text-align: left;
             box-sizing: border-box;
+            text-align: left;
         }
         .otp-container h2 {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             color: #333;
             font-size: 24px;
         }
@@ -51,23 +68,37 @@
         .otp-container button:hover {
             background-color: #0056b3;
         }
+        .otp-container a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .otp-container a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
- 	<div class="message">
-    	<h3 style="color: green;" th:text="${session.pass}"></h3>
-    	<h3 style="color: red;" th:text="${session.fail}"></h3>
-    	<th:block th:text="${@messageRemover.remove()}"></th:block>
-    </div>
-    <div class="otp-container">
-        <h2>OTP Verification</h2>
-        <p>Please enter the OTP sent to your email/phone</p>
-        <form action="/verify-otp" method="post">
-            <input type="hidden" name="id" th:value="${id}">
-            <input type="text" name="otp" class="otp-input" placeholder="Enter OTP" required>
-            <br>
-            <button type="submit" class="verify-button">Verify OTP</button>
-        </form>
+    <img id="logo" th:src="@{/images/logo.png}" alt="Logo">
+    <div class="main-container">
+        <div class="message">
+            <h3 style="color: green;" th:text="${session.pass}"></h3>
+            <h3 style="color: red;" th:text="${session.fail}"></h3>
+            <th:block th:text="${@messageRemover.remove()}"></th:block>
+        </div>
+        <div class="otp-container">
+            <h2>OTP Verification</h2>
+            <p>Please enter the OTP sent to your email</p>
+            <form action="/verify-otp" method="post">
+                <input type="hidden" name="id" th:value="${id}">
+                <input type="text" name="otp" class="otp-input" placeholder="Enter OTP" required>
+                <br>
+                <button type="submit" class="verify-button">Verify OTP</button>
+            </form>
+            <a th:href="'/resend-otp/'+${id}">Resend OTP</a>
+        </div>
     </div>
 </body>
 </html>

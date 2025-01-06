@@ -15,6 +15,12 @@
             margin: 0;
             overflow: hidden;
         }
+        #logo {
+            position: absolute;
+            max-width: 400px;
+            top: 0px;
+            left:0px;
+        }
         .register-container {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
@@ -124,6 +130,7 @@
 <body>
     <div class="register-container">
         <h2>Register</h2>
+        <img id="logo" th:src="@{/images/logo.png}" alt="Logo">
         <form action="/register" method="post" th:object="${user}">
             <div class="form-group">
                 <label for="firstname">First Name</label>

@@ -13,6 +13,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column; /* Stack elements vertically */
+        }
+        #logo {
+            position: absolute;
+            max-width: 400px;
+            top: 70px;
         }
         .login-container {
             background-color: rgba(255, 255, 255, 0.9);
@@ -46,25 +52,11 @@
             border: none;
             border-radius: 10px;
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
         }
         .login-container button:hover {
             background-color: #0056b3;
-        }
-        .login-container .links {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        .login-container .links a {
-            color: #007BFF;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .login-container .links a:hover {
-            text-decoration: underline;
         }
         @media (max-width: 600px) {
             .login-container {
@@ -87,15 +79,16 @@
     </style>
 </head>
 <body>
-	<div class="message">
-    	<h3 style="color: green;" th:text="${session.pass}"></h3>
-    	<h3 style="color: red;" th:text="${session.fail}"></h3>
-    	<th:block th:text="${@messageRemover.remove()}"></th:block>
-    </div>
+    <div class="message">
+        <h3 style="color: green;" th:text="${session.pass}"></h3>
+        <h3 style="color: red;" th:text="${session.fail}"></h3>
+        <th:block th:text="${@messageRemover.remove()}"></th:block>
+    </div><br>
+    <img id="logo" th:src="@{/images/logo.png}" alt="Logo">
     <div class="login-container">
         <h2>Login</h2>
         <label for="">User Name</label>
-        <input type="text"  required>
+        <input type="text" required>
         <label for="">Password</label>
         <input type="password" required>
         <button>Login</button>
