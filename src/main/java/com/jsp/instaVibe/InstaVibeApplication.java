@@ -9,5 +9,4 @@ public class InstaVibeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InstaVibeApplication.class, args);
 	}
-
 }

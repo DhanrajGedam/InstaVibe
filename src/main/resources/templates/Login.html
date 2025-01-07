@@ -76,6 +76,11 @@
                 font-size: 16px;
             }
         }
+        #ftr{
+            position: absolute;
+            bottom: 0px;
+            left: 47%;
+        }
     </style>
 </head>
 <body>
@@ -87,15 +92,21 @@
     <img id="logo" th:src="@{/images/logo.png}" alt="Logo">
     <div class="login-container">
         <h2>Login</h2>
+        <form action="/login" method="post">
         <label for="">User Name</label>
-        <input type="text" required>
+        <input type="text" id="username" name="username"  required>
         <label for="">Password</label>
-        <input type="password" required>
-        <button>Login</button>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" class="login-button">Log In</button>
+        </form>
+        
         <div class="links">
             <span>Don't have Account?</span>
             <a href="/register">Register account</a>
         </div>
     </div>
+    <footer class="footer">
+        <p id="ftr">© 2024 - ∞ instaVibe</p>
+    </footer>
 </body>
 </html>
