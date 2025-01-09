@@ -19,7 +19,7 @@ public class EmailSender {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message);
 		try {
-			helper.setFrom("your-email@gmail.com", "instaVibe Social Media Application");
+			helper.setFrom("dhanrajdhanugedam6@gmail.com", "instaVibe Social Media Application");
 			helper.setTo(to);
 			helper.setSubject("Verify Your Email thru OTP");
 			Context context = new Context();

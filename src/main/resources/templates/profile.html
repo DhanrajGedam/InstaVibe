@@ -77,18 +77,41 @@
         .my-posts button:hover {
             background-color: #0056b3;
         }
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        #ep{
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            left: 35px;
+
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <img th:src="@{/images/logo.png}" alt="Logo">
+        
     </div>
     <div class="profile-container">
-        <div class="profile-picture"></div>
+        <div class="profile-picture">
+            <img th:if="${session.user.imageUrl==null}"  src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png" alt="Profile Picture" class="profile-picture">
+            <img th:if="${session.user.imageUrl}"  th:src="${session.user.imageUrl}" alt="Profile Picture" class="profile-picture">
+        </div>
         <div class="profile-info">
-            <h2>Username</h2>
-            <p>Email: user@example.com</p>
-            <p>Bio: Here is the bio</p>
+            <h2 th:text="${session.user.username}"></h2>
+            <h3 th:text="${session.user.email}"></h3>
+            <p>Bio: <p th:text="${session.user.bio}"></p></p>
+            <div  class="profile-actions">
+                <a  th:href="'/edit-profile'"> <button id="ep" class="edit-profile-btn">Edit Profile</button></a>
+             </div>
         </div>
         <div class="stats">
             <div>

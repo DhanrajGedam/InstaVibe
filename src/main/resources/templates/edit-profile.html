@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <meta name="description" content="JspGram - Your Social Media Feed" />
-    <title>instaVibe Home</title>
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
     <style>
         :root {
             --primary-color: #0095f6;
@@ -26,6 +22,10 @@
 
         body {
             background-color: var(--background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .navbar {
@@ -78,43 +78,54 @@
             color: white;
         }
 
-        .main-content {
-            max-width: 600px;
-            margin: 100px auto 0;
-            padding: 2rem;
+        .edit-profile-container {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 100px; /* Adjusted for fixed navbar */
+        }
+
+        .edit-profile-container h2 {
             text-align: center;
-        }
-
-        .all-caught-up {
-            padding: 3rem 0;
-        }
-
-        .checkmark-circle {
-            width: 100px;
-            height: 100px;
-            background-color: var(--primary-color);
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .checkmark-circle svg {
-            width: 50px;
-            height: 50px;
-            color: white;
-        }
-
-        .caught-up-text {
-            font-size: 1.5rem;
+            margin-bottom: 20px;
             color: #262626;
-            margin-bottom: 0.5rem;
         }
 
-        .caught-up-subtext {
+        .edit-profile-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-profile-container label {
+            margin-bottom: 5px;
             color: #8e8e8e;
-            font-size: 0.875rem;
+        }
+
+        .edit-profile-container input[type="file"],
+        .edit-profile-container input[type="text"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .edit-profile-container button {
+            padding: 10px;
+            background-color: #0095f6;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .edit-profile-container button:hover {
+            background-color: #0078cc;
         }
 
         @media (max-width: 768px) {
@@ -128,9 +139,7 @@
         }
     </style>
 </head>
-
 <body>
-    <h1>Home</h1>
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">
@@ -138,23 +147,20 @@
             </div>
             <div class="nav-right">
                 <a href="/profile"><button class="profile-button">Profile</button></a>
-                <h2 th:text="${session.user.firstname}"></h2>
                 <a href="/logout">
                     <button type="submit" class="logout-button">Logout</button></a>
             </div>
         </div>
     </nav>
-    <main class="main-content">
-        <div class="all-caught-up">
-            <div class="checkmark-circle">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-            </div>
-            <h2 class="caught-up-text">You're All Caught Up</h2>
-            <p class="caught-up-subtext">You've seen all new posts</p>
-        </div>
-    </main>
+    <div class="edit-profile-container">
+        <h2>Edit Profile</h2>
+        <form action="/update-profile" method="post" enctype="multipart/form-data">
+            <label for="image">Profile Picture:</label>
+            <input type="file" name="image" id="image" required>
+            <label for="bio">Bio:</label>
+            <input type="text" name="bio" id="bio" required>
+            <button type="submit">Update</button>
+        </form>
+    </div>
 </body>
-
 </html>
